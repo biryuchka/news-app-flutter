@@ -10,7 +10,9 @@
 
 ## Скриншоты из приложения
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](/screens/homepage_bright.jpg)
+![App Screenshot](/screens/homepage_dark.jpg)
+![App Screenshot](/screens/details.jpg)
 
 
 ## Настройка виртуального окружения
