@@ -45,11 +45,11 @@ List<Article> parseArticles(String responseBody) {
   return output;
 }
 
-Future<List<Article>> fetchArticles() async {
+Future<List<Article>> fetchArticles(String? category) async {
   String? apiKey = dotenv.env['API_KEY'];
   final response = await http
       .get(
-      Uri.parse('https://newsapi.org/v2/everything?q=general&apiKey=$apiKey'),);
+      Uri.parse('https://newsapi.org/v2/everything?q=$category&apiKey=$apiKey'),);
 
   if (response.statusCode == 200) {
     return parseArticles(response.body);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_api_hw1/pages/appbar.dart';
 import 'package:news_api_hw1/modal/article.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsPage extends StatelessWidget{
@@ -11,7 +12,9 @@ class DetailsPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: AppBar(
+        title: MyTitle(),
+      ),
       body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

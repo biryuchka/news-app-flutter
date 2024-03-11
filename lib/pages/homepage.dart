@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:news_api_hw1/pages/details.dart';
 import 'package:news_api_hw1/pages/appbar.dart';
 import 'package:news_api_hw1/modal/article.dart';
@@ -12,34 +14,59 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<List<Article>> futureArticles;
+  List<String> Category = [
+    "general",
+    "it",
+    "science",
+    "business"
+  ];
 
   @override
   void initState() {
-    futureArticles = fetchArticles();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(),
-      body: FutureBuilder<List<Article>>(
-        future: futureArticles,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return buildNewsListView(snapshot.data as List<Article>);
-          } else if (snapshot.hasError) {
-            return Center(
-                child: Text('${snapshot.error}'),
-            );
-          }
-          return
-            const Center(
-                child: CircularProgressIndicator(),
-            );
-        },
+    return DefaultTabController(
+      length: Category.length,
+      child:Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: MyTitle(),
+        bottom: TabBar(
+          tabs: [
+            for (var text in Category)
+              Tab(text: text),
+          ],
+        ),
       ),
+      body: TabBarView(
+        children: [
+          for (var i in Category)
+          _futureBuilder(i),
+        ],
+      )
+      ),
+    );
+  }
+
+  FutureBuilder<List<Article>> _futureBuilder(String category) {
+    return FutureBuilder<List<Article>>(
+      future: fetchArticles(category),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return buildNewsListView(snapshot.data as List<Article>);
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('${snapshot.error}'),
+          );
+        }
+        return
+          const Center(
+            child: CircularProgressIndicator(),
+          );
+      },
     );
   }
 
@@ -114,4 +141,5 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 }
